@@ -1,0 +1,12 @@
+{
+  "name": "recallops",
+  "version": "1.0.0",
+  "description": "AI-powered Incident Response Agent for DevOps teams",
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "watch": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}
