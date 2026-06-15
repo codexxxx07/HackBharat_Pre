@@ -108,9 +108,16 @@ const sampleIncidents = [
 document.addEventListener('DOMContentLoaded', () => {
     console.log('RecallOps initializing...');
     
-    // Load sample data
-    incidents = [...sampleIncidents];
-    memories = [...sampleIncidents];
+    // Load from localStorage first, if available
+    const storedIncidents = localStorage.getItem('recallops-incidents');
+    if (storedIncidents) {
+        incidents = JSON.parse(storedIncidents);
+        memories = [...incidents];
+    } else {
+        // Load sample data if localStorage is empty
+        incidents = [...sampleIncidents];
+        memories = [...sampleIncidents];
+    }
     
     // Initialize UI
     renderDashboard();
@@ -485,6 +492,9 @@ async function handleIncidentSubmit(e) {
     // Add to local incidents
     incidents.push(incident);
     memories.push(incident);
+    
+    // Save to localStorage for persistence
+    localStorage.setItem('recallops-incidents', JSON.stringify(incidents));
     
     // Store in Hindsight memory
     await storeMemory(incident);
