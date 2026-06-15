@@ -238,10 +238,87 @@ function viewIncident(id) {
     const incident = incidents.find(i => i.id === id);
     if (incident) {
         console.log('Viewing incident:', incident);
-        // Could open a modal or navigate to detail view
-        alert(`Incident: ${incident.title}\nSeverity: ${incident.severity}\nStatus: ${incident.status}\n\nDescription: ${incident.description}\n\nResolution: ${incident.resolution || 'Not resolved yet'}`);
+        
+        // Populate modal with incident details
+        document.getElementById('modal-id').textContent = incident.id;
+        document.getElementById('modal-title').textContent = incident.title;
+        document.getElementById('modal-date').textContent = incident.date;
+        document.getElementById('modal-description').textContent = incident.description;
+        document.getElementById('modal-logs-content').textContent = incident.logs || 'No logs available';
+        
+        // Set severity badge
+        const severityBadge = document.getElementById('modal-severity');
+        severityBadge.textContent = incident.severity;
+        severityBadge.className = `px-3 py-1 rounded-full text-xs font-medium ${getSeverityClass(incident.severity)}`;
+        
+        // Set status badge
+        const statusBadge = document.getElementById('modal-status');
+        statusBadge.textContent = incident.status;
+        statusBadge.className = `px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(incident.status)}`;
+        
+        // Set resolution
+        const resolutionSection = document.getElementById('modal-resolution-section');
+        const resolutionText = document.getElementById('modal-resolution');
+        if (incident.resolution) {
+            resolutionSection.classList.remove('hidden');
+            resolutionText.textContent = incident.resolution;
+        } else {
+            resolutionSection.classList.add('hidden');
+        }
+        
+        // Show modal with animation
+        const modal = document.getElementById('incident-modal');
+        const backdrop = document.getElementById('modal-backdrop');
+        const modalCard = modal.querySelector('.relative.bg-white');
+        
+        modal.classList.remove('hidden');
+        
+        // Trigger animation
+        setTimeout(() => {
+            backdrop.classList.remove('opacity-0');
+            modalCard.classList.remove('scale-95', 'opacity-0');
+            modalCard.classList.add('scale-100', 'opacity-100');
+        }, 10);
     }
 }
+
+function closeModal() {
+    const modal = document.getElementById('incident-modal');
+    const backdrop = document.getElementById('modal-backdrop');
+    const modalCard = modal.querySelector('.relative.bg-white');
+    
+    // Animate out
+    backdrop.classList.add('opacity-0');
+    modalCard.classList.remove('scale-100', 'opacity-100');
+    modalCard.classList.add('scale-95', 'opacity-0');
+    
+    // Hide modal after animation
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+// Setup modal event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Close button
+    document.getElementById('modal-close-btn').addEventListener('click', closeModal);
+    
+    // Close action button
+    document.getElementById('modal-close-action').addEventListener('click', closeModal);
+    
+    // Click outside to close
+    document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+    
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('incident-modal');
+            if (!modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        }
+    });
+});
 
 // ============================================
 // CHAT INTERFACE

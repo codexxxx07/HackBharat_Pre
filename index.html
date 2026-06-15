@@ -358,6 +358,67 @@
         <p id="toast-message">Incident saved successfully!</p>
     </div>
     
+    <!-- Incident Detail Modal -->
+    <div id="incident-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div id="modal-backdrop" class="absolute inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm transition-opacity duration-300 opacity-0"></div>
+        
+        <!-- Modal Content -->
+        <div id="modal-content" class="absolute inset-0 flex items-center justify-center p-4">
+            <div class="relative bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/10 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+                <!-- Close Button -->
+                <button id="modal-close-btn" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                
+                <!-- Modal Body -->
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span id="modal-id" class="text-sm text-gray-500 dark:text-gray-400 font-mono"></span>
+                                <span id="modal-severity" class="px-3 py-1 rounded-full text-xs font-medium"></span>
+                            </div>
+                            <h2 id="modal-title" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                        </div>
+                        <span id="modal-status" class="px-3 py-1 rounded-full text-xs font-medium"></span>
+                    </div>
+                    
+                    <!-- Date -->
+                    <p id="modal-date" class="text-sm text-gray-500 dark:text-gray-400 mb-4"></p>
+                    
+                    <!-- Description -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Description</h3>
+                        <p id="modal-description" class="text-gray-600 dark:text-gray-300"></p>
+                    </div>
+                    
+                    <!-- Error Logs -->
+                    <div class="mb-4">
+                        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Error Logs</h3>
+                        <div id="modal-logs" class="bg-gray-900 dark:bg-[#0a0a0f] rounded-lg p-4 overflow-x-auto">
+                            <pre id="modal-logs-content" class="text-sm text-green-400 font-mono whitespace-pre-wrap"></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Resolution Steps -->
+                    <div id="modal-resolution-section" class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Resolution Steps</h3>
+                        <p id="modal-resolution" class="text-green-600 dark:text-green-400"></p>
+                    </div>
+                    
+                    <!-- Close Button -->
+                    <button id="modal-close-action" class="w-full bg-gradient-to-r from-electric-blue to-purple hover:opacity-90 px-6 py-3 rounded-lg font-medium transition-all duration-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="config.js"></script>
     <script src="app.js"></script>
 </body>
