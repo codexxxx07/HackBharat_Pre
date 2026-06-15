@@ -226,8 +226,8 @@
                         <!-- Input Bar -->
                         <div class="p-4 border-t border-gray-200 dark:border-white/10">
                             <div class="flex gap-3">
-                                <input type="text" id="chat-input" placeholder="Describe your incident..." class="flex-1 bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors">
-                                <button onclick="sendMessage()" class="bg-electric-blue hover:bg-blue-600 px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2">
+                                <input type="text" id="chat-input" maxlength="1000" placeholder="Describe your incident..." class="flex-1 bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors" autocomplete="off">
+                                <button id="chat-send-btn" onclick="debouncedSendMessage()" class="bg-electric-blue hover:bg-blue-600 px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2">
                                     <span>Send</span>
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -263,7 +263,7 @@
                     <form id="incident-form" class="space-y-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Incident Title</label>
-                            <input type="text" id="incident-title" required class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors" placeholder="e.g., Database Connection Pool Exhausted">
+                            <input type="text" id="incident-title" required maxlength="200" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors" placeholder="e.g., Database Connection Pool Exhausted">
                         </div>
                         
                         <div>
@@ -279,17 +279,17 @@
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Description</label>
-                            <textarea id="incident-description" required rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none" placeholder="Describe the incident in detail..."></textarea>
+                            <textarea id="incident-description" required maxlength="2000" rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none" placeholder="Describe the incident in detail..."></textarea>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Error Logs</label>
-                            <textarea id="incident-logs" rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none font-mono text-sm" placeholder="Paste relevant error logs here..."></textarea>
+                            <textarea id="incident-logs" maxlength="5000" rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none font-mono text-sm" placeholder="Paste relevant error logs here..."></textarea>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">Resolution Steps</label>
-                            <textarea id="incident-resolution" rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none" placeholder="Describe how you resolved this incident..."></textarea>
+                            <textarea id="incident-resolution" maxlength="2000" rows="4" class="w-full bg-gray-50 dark:bg-[#0a0a0f] border border-gray-200 dark:border-white/10 rounded-lg px-4 py-3 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:border-electric-blue transition-colors resize-none" placeholder="Describe how you resolved this incident..."></textarea>
                         </div>
                         
                         <button type="submit" class="w-full bg-gradient-to-r from-electric-blue to-purple hover:opacity-90 px-6 py-3 rounded-lg font-medium transition-all duration-300">
@@ -365,7 +365,7 @@
         
         <!-- Modal Content -->
         <div id="modal-content" class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="relative bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/10 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+            <div id="modal-card" class="relative bg-white dark:bg-[#12121a] border border-gray-200 dark:border-white/10 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
                 <!-- Close Button -->
                 <button id="modal-close-btn" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
