@@ -293,4 +293,4 @@ For questions or feedback, please open an issue on GitHub.
 
 ---
 
-**Built with ❤️ for HackBharat Pre-Hackathon**
+**Built with ❤️ for HackBharat Pre-Hackathon by team Codex**
