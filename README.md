@@ -42,19 +42,20 @@ RecallOps is an intelligent AI agent that remembers every past server incident a
 ## � Screenshots
 
 ### 🖥️ Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](/assets/Img1.png)
 *Real-time incident tracking with severity badges*
 
 ### 🤖 AI Assistant
-![AI Assistant](screenshots/ai-assistant.png)
+![AI Assistant](/assets/Img2.png)
 *Chat interface with Memory Context panel*
 
 ### 📝 Log Incident
-![Log Incident](screenshots/log-incident.png)
+![Log Incident](/assets/Img3.png)
 *Incident logging form with auto-save to Hindsight*
 
 ### 🧠 Memory Viewer
-![Memory Viewer](screenshots/memory-viewer.png)
+![Memory Viewer](/assets/Img4.png)
+![Memory Viewer](/assets/Img5.png)
 *Before/After memory comparison and timeline*
 
 ---
