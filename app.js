@@ -34,10 +34,10 @@ window.addEventListener('load', () => {
 // ============================================
 // API CONFIGURATION
 // ============================================
-const GROQ_API_KEY = "";
-const HINDSIGHT_API_KEY = "";
-const HINDSIGHT_BANK_ID = "recallops-memory"; 
-const HINDSIGHT_API_URL = "https://api.hindsight.vectorize.io";
+// const GROQ_API_KEY = "";
+// const HINDSIGHT_API_KEY = "";
+// const HINDSIGHT_BANK_ID = "recallops-memory"; 
+// const HINDSIGHT_API_URL = "https://api.hindsight.vectorize.io";
 
 // ============================================
 // STATE MANAGEMENT
